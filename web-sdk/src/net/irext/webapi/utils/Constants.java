@@ -32,7 +32,8 @@ public class Constants {
         LIGHT(10),
         BSTB(11),
         CLEANING_ROBOT(12),
-        AIR_CLEANER(13);
+        AIR_CLEANER(13),
+        DYSON(14);
 
         private final int id;
 
