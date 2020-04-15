@@ -18,12 +18,17 @@ public class DecodeRequest extends BaseRequest {
     private ACStatus acStatus;
     private int keyCode;
     private int changeWindDir;
+    private Integer directDecode;
+    private Integer paraData;
 
-    public DecodeRequest(int indexId, ACStatus acStatus, int keyCode, int changeWindDir) {
+    public DecodeRequest(int indexId, ACStatus acStatus, int keyCode, int changeWindDir,
+                         Integer directDecode, Integer paraData) {
         this.indexId = indexId;
         this.acStatus = acStatus;
         this.keyCode = keyCode;
         this.changeWindDir = changeWindDir;
+        this.directDecode = directDecode;
+        this.paraData = paraData;
     }
 
     public DecodeRequest() {
@@ -60,5 +65,21 @@ public class DecodeRequest extends BaseRequest {
 
     public void setChangeWindDir(int changeWindDir) {
         this.changeWindDir = changeWindDir;
+    }
+
+    public Integer getDirectDecode() {
+        return directDecode;
+    }
+
+    public void setDirectDecode(Integer directDecode) {
+        this.directDecode = directDecode;
+    }
+
+    public Integer getParaData() {
+        return paraData;
+    }
+
+    public void setParaData(Integer paraData) {
+        this.paraData = paraData;
     }
 }

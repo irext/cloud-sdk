@@ -1,6 +1,7 @@
 package net.irext.webapi;
 
 import com.google.gson.Gson;
+import net.irext.webapi.bean.ACStatus;
 import net.irext.webapi.model.*;
 import net.irext.webapi.utils.Constants;
 import net.irext.webapi.request.*;
@@ -28,7 +29,7 @@ public class WebAPIs {
 
     private static WebAPIs mInstance = null;
 
-    private static final String DEFAULT_ADDRESS = "http://irext.net";
+    private static final String DEFAULT_ADDRESS = "http://localhost:8081";
     private static final String DEFAULT_APP = "/irext-server";
     private static String URL_PREFIX = DEFAULT_ADDRESS + DEFAULT_APP;
 
@@ -46,11 +47,12 @@ public class WebAPIs {
     private static final String SERVICE_LIST_INDEXES = "/indexing/list_indexes";
     private static final String SERVICE_DOWNLOAD_BIN = "/operation/download_bin";
     private static final String SERVICE_ONLINE_DECODE = "/operation/decode";
+    private static final String SERVICE_GET_AC_PARAMETERS = "/operation/get_ac_parameters";
 
     private int id;
     private String token;
 
-    private OkHttpClient mHttpClient;
+    private final OkHttpClient mHttpClient;
 
     private WebAPIs(String address, String appName) {
         if (null != address && null != appName) {
@@ -267,6 +269,7 @@ public class WebAPIs {
                                   int brandId,
                                   String cityCode,
                                   String operatorId,
+                                  int withParaData,
                                   ListIndexesCallback onListIndexCallback) {
         String listIndexesURL = URL_PREFIX + SERVICE_LIST_INDEXES;
         ListIndexesRequest listIndexesRequest = new ListIndexesRequest();
@@ -276,6 +279,7 @@ public class WebAPIs {
         listIndexesRequest.setBrandId(brandId);
         listIndexesRequest.setCityCode(cityCode);
         listIndexesRequest.setOperatorId(operatorId);
+        listIndexesRequest.setWithParaData(withParaData);
         listIndexesRequest.setFrom(0);
         listIndexesRequest.setCount(20);
         String bodyJson = listIndexesRequest.toJson();
@@ -299,8 +303,7 @@ public class WebAPIs {
     @SuppressWarnings("unused")
     public void downloadBin(String remoteMap, int indexId,
                             DownloadBinCallback downloadBinCallback) {
-        String fileName = IR_BIN_FILE_PREFIX + remoteMap + IR_BIN_FILE_SUFFIX;
-        String downloadURL = IR_BIN_DOWNLOAD_PREFIX + fileName;
+        String downloadURL = URL_PREFIX + SERVICE_DOWNLOAD_BIN;
         DownloadBinaryRequest downloadBinaryRequest = new DownloadBinaryRequest();
         downloadBinaryRequest.setId(id);
         downloadBinaryRequest.setToken(token);
@@ -310,7 +313,7 @@ public class WebAPIs {
 
         if (null != bodyJson) {
             try {
-                InputStream binStream = getFileByteStreamByURL(downloadURL);
+                InputStream binStream = postToServerForOctets(downloadURL, bodyJson);
 
                 if (null != binStream) {
                     downloadBinCallback.onDownloadBinSuccess(binStream);
@@ -325,13 +328,18 @@ public class WebAPIs {
     }
 
     @SuppressWarnings("unused")
-    @Deprecated
-    public int[] decodeIR(int indexId) {
+    public int[] decodeIR(int indexId, ACStatus acStatus, int keyCode, int changeWindDir,
+                          Integer directDecode, Integer paraData) {
         String decodeURL = URL_PREFIX + SERVICE_ONLINE_DECODE;
         DecodeRequest decodeRequest = new DecodeRequest();
         decodeRequest.setId(id);
         decodeRequest.setToken(token);
         decodeRequest.setIndexId(indexId);
+        decodeRequest.setAcStatus(acStatus);
+        decodeRequest.setKeyCode(keyCode);
+        decodeRequest.setChangeWindDir(changeWindDir);
+        decodeRequest.setDirectDecode(directDecode);
+        decodeRequest.setParaData(paraData);
 
         String bodyJson = decodeRequest.toJson();
 
@@ -343,6 +351,32 @@ public class WebAPIs {
 
                 if (decodeResponse.getStatus().getCode() == Constants.ERROR_CODE_SUCCESS) {
                     return decodeResponse.getEntity();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    @SuppressWarnings("unused")
+    public ACParameters getACParameters(int indexId, int mode) {
+        String decodeURL = URL_PREFIX + SERVICE_GET_AC_PARAMETERS;
+        GetACParametersRequest getACParametersRequest = new GetACParametersRequest();
+        getACParametersRequest.setId(id);
+        getACParametersRequest.setToken(token);
+        getACParametersRequest.setIndexId(indexId);
+        getACParametersRequest.setMode(mode);
+
+        String bodyJson = getACParametersRequest.toJson();
+        if (null != bodyJson) {
+            try {
+                String response = postToServer(decodeURL, bodyJson);
+
+                ACParametersResponse acParametersResponse = new Gson().fromJson(response, ACParametersResponse.class);
+
+                if (acParametersResponse.getStatus().getCode() == Constants.ERROR_CODE_SUCCESS) {
+                    return acParametersResponse.getEntity();
                 }
             } catch (IOException e) {
                 e.printStackTrace();

@@ -34,7 +34,7 @@ public class Constants {
         CLEANING_ROBOT(12),
         AIR_CLEANER(13),
         DYSON(14);
-        
+
         private final int id;
 
         CategoryID(int id) {
