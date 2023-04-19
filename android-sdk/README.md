@@ -1,7 +1,7 @@
 ## Usage
 
 ### 1. Register your APP
-Register your APP on irext SDK console [irext SDK console](http://irext.net), (You need to register an irext account first)
+Register your APP on irext SDK console [irext SDK console](http://site.irext.net), (You need to register an irext account first)
 
 You need to fetch the package name and SHA1 signature of your APP and fill these information as SDK registration information
 
