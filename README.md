@@ -5,7 +5,7 @@ Indexing to the specified remote index and download IR binary file for it.
 ## Android SDK Usage
 
 ### 1. Register your APP
-Register your APP on irext SDK console [irext SDK console](http://irext.net), (You need to register an irext account first)
+Register your APP on irext SDK console [irext SDK console](http://site.irext.net/sdk), (You need to register an irext account first)
 
 You need to fetch the package name and SHA1 signature of your APP and fill these information as SDK registration information
 
@@ -180,7 +180,7 @@ webApis.downloadBin(remoteIndex.getRemote_map(), remoteIndex.getId(), downloadBi
 ## Java Web SDK Usage
 
 ### 1. Register your APP
-Register your APP on irext SDK console [irext SDK console](http://irext.net), (You need to register an irext account first
+Register your APP on irext SDK console [irext SDK console](http://site.irext.net/sdk), (You need to register an irext account first
 
 While your APP is registered, you can see the APP key and APP secret in your APP list
 
