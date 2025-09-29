@@ -2,6 +2,9 @@ apply plugin: 'com.android.library'
 
 buildscript {
     repositories {
+        maven {
+            url "https://maven.aliyun.com/nexus/content/repositories/releases"
+        }
         jcenter()
         google()
     }
@@ -13,11 +16,18 @@ buildscript {
 }
 allprojects {
     repositories {
-        google() // and here
+        maven {
+            url "https://maven.aliyun.com/nexus/content/repositories/releases/"
+        }
+        maven {
+            url "https://maven.aliyun.com/nexus/content/repositories/snapshots"
+        }
+        google()
         jcenter()
     }
 }
 android {
+    namespace = "net.irext.webapi"
     signingConfigs {
         irext_key {
             keyAlias 'irext-android'
@@ -26,13 +36,13 @@ android {
             storePassword 'irext-android'
         }
     }
-    compileSdkVersion 35
+    compileSdkVersion 34
     buildToolsVersion "25.0.0"
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 35
+        minSdkVersion 33
+        targetSdkVersion 34
         versionCode 5
-        versionName '0.2.2'
+        versionName '1.5.0'
         signingConfig signingConfigs.irext_key
     }
     buildTypes {
@@ -40,7 +50,7 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.irext_key
-            versionNameSuffix '0.2.4'
+            versionNameSuffix '1.5.0'
         }
         debug {
             debuggable true
