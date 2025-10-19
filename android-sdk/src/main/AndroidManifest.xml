@@ -1,6 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-
-    package="net.irext.webapi">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="net.irext.webapi">
 
     <application android:allowBackup="true" android:supportsRtl="true">
 
