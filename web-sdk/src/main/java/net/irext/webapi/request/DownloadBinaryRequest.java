@@ -11,9 +11,7 @@ package net.irext.webapi.request;
  * 2017-04-14: created by strawmanbobi
  */
 public class DownloadBinaryRequest extends BaseRequest {
-
     private int indexId;
-
     public DownloadBinaryRequest(int indexId) {
         this.indexId = indexId;
     }
