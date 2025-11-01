@@ -12,7 +12,7 @@ You need to fetch the package name and SHA1 signature of your APP and fill these
 While your APP is registered, you can see the APP key and APP secret in your APP list
 
 ### 2. Import the SDK
-You can either import this project or download the web-api .aar file from [Android SDK](http://irext-lib-releaese.oss-cn-hangzhou.aliyuncs.com/decode/0.1.2/web-api-android-0.1.2.aar) and import to your Android APP project
+You can either import this project or download the web-api .aar file from [Android SDK](https://irext-lib-release.oss-cn-hangzhou.aliyuncs.com/1.5.0/index-sdk/index-sdk-android-1.5.0.aar) and import to your Android APP project
 
 Add 2 meta-data tags to your AndroidManifest.xml providing APP key and secret get from step 1.
 ```xml
@@ -185,7 +185,7 @@ Register your APP on irext SDK console [irext SDK console](http://site.irext.net
 While your APP is registered, you can see the APP key and APP secret in your APP list
 
 ### 2. Import the SDK
-You can either import this project or download the web-api .jar file from [Java SDK](http://irext-lib-releaese.oss-cn-hangzhou.aliyuncs.com/decode/0.1.2/web-api-java-0.1.2.jar) and import to your project
+You can either import this project or download the web-api .jar file from [Java SDK](https://irext-lib-release.oss-cn-hangzhou.aliyuncs.com/1.5.0/index-sdk/index-sdk-java-1.5.0.jar) and import to your project
 
 ### 3. Use the SDK
 
