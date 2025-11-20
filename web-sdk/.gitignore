@@ -46,3 +46,6 @@ log/
 
 # Asc files (e.g., GPG signatures)
 *.asc
+
+# POM file
+pom.xml
