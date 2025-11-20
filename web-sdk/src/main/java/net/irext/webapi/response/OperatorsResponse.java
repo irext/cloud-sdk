@@ -18,19 +18,38 @@ public class OperatorsResponse extends ServiceResponse {
 
     private List<StbOperator> entity;
 
+    /**
+     * Constructs an OperatorsResponse with the specified status and cities.
+     *
+     * @param status the response status
+     * @param cities the list of STB operators
+     */
     public OperatorsResponse(Status status, List<StbOperator> cities) {
         super(status);
         this.entity = cities;
     }
 
+    /**
+     * Default constructor for OperatorsResponse.
+     */
     public OperatorsResponse() {
 
     }
 
+    /**
+     * Gets the list of STB operators.
+     *
+     * @return the list of STB operators
+     */
     public List<StbOperator> getEntity() {
         return entity;
     }
 
+    /**
+     * Sets the list of STB operators.
+     *
+     * @param entity the list of STB operators to set
+     */
     public void setEntity(List<StbOperator> entity) {
         this.entity = entity;
     }

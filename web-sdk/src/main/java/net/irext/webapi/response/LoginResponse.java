@@ -15,19 +15,38 @@ public class LoginResponse extends ServiceResponse {
 
     private UserApp entity;
 
+    /**
+     * Constructs a LoginResponse with the specified status and user app.
+     *
+     * @param status the response status
+     * @param userApp the user app
+     */
     public LoginResponse(Status status, UserApp userApp) {
         super(status);
         this.entity = userApp;
     }
 
+    /**
+     * Default constructor for LoginResponse.
+     */
     public LoginResponse() {
 
     }
 
+    /**
+     * Gets the user app entity.
+     *
+     * @return the user app entity
+     */
     public UserApp getEntity() {
         return entity;
     }
 
+    /**
+     * Sets the user app entity.
+     *
+     * @param entity the user app entity to set
+     */
     public void setEntity(UserApp entity) {
         this.entity = entity;
     }

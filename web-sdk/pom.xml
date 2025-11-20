@@ -8,8 +8,41 @@
     <version>1.5.0</version>
     <packaging>jar</packaging>
 
+    <url>https://opensource.irext.net/irext/index-api</url>
     <name>irext-remote-index</name>
     <description>Indexing API for IRext remote controller</description>
+
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>https://opensource.irext.net/irext/index-api/-/blob/master/LICENSE</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Strawmanbobi</name>
+            <email>strawmanbobi@irext.net</email>
+            <organization>IRext</organization>
+            <organizationUrl>https://site.irext.net</organizationUrl>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git://opensource.irext.net/irext/index-api</connection>
+        <developerConnection>scm:git:ssh://opensource.irext.net/irext/index-api</developerConnection>
+        <url>https://opensource.irext.net/irext/index-api</url>
+    </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -45,23 +78,19 @@
                     <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.5.1</version> <executions>
-                <execution>
-                    <phase>package</phase>
-                    <goals>
-                        <goal>shade</goal>
-                    </goals>
-                    <configuration>
-                        <outputFile>${project.build.directory}/${project.artifactId}-shaded.jar</outputFile>
-                    </configuration>
-                </execution>
-            </executions>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
-
         </plugins>
     </build>
 </project>

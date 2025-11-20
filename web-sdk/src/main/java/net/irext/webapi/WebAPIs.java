@@ -54,6 +54,12 @@ public class WebAPIs {
 
     private final OkHttpClient mHttpClient;
 
+    /**
+     * Constructs a WebAPIs instance with the specified address and application name.
+     *
+     * @param address the server address
+     * @param appName the application name
+     */
     private WebAPIs(String address, String appName) {
         if (null != address && null != appName) {
             URL_PREFIX = address + appName;
@@ -61,10 +67,23 @@ public class WebAPIs {
         mHttpClient = new OkHttpClient();
     }
 
+    /**
+     * Initializes the WebAPIs instance with the specified address and application name.
+     *
+     * @param address the server address
+     * @param appName the application name
+     */
     private static void initializeInstance(String address, String appName) {
         mInstance = new WebAPIs(address, appName);
     }
 
+    /**
+     * Gets the WebAPIs instance, creating it if necessary.
+     *
+     * @param address the server address
+     * @param appName the application name
+     * @return the WebAPIs instance
+     */
     @SuppressWarnings("unused")
     public static WebAPIs getInstance(String address, String appName) {
         if (null == mInstance) {
@@ -73,6 +92,13 @@ public class WebAPIs {
         return mInstance;
     }
 
+    /**
+     * Gets a file byte stream from the specified URL.
+     *
+     * @param url the URL to get the file from
+     * @return the file byte stream
+     * @throws IOException if an I/O error occurs
+     */
     private InputStream getFileByteStreamByURL(String url) throws IOException {
         Request request = new Request.Builder()
                 .url(url)
@@ -83,6 +109,14 @@ public class WebAPIs {
         return response.body().byteStream();
     }
 
+    /**
+     * Posts data to the server at the specified URL.
+     *
+     * @param url the URL to post to
+     * @param json the JSON data to post
+     * @return the server response
+     * @throws IOException if an I/O error occurs
+     */
     private String postToServer(String url, String json) throws IOException {
         MediaType JSON
                 = MediaType.parse("application/json; charset=utf-8");
@@ -96,6 +130,14 @@ public class WebAPIs {
         return response.body().string();
     }
 
+    /**
+     * Posts data to the server for octet stream response.
+     *
+     * @param url the URL to post to
+     * @param json the JSON data to post
+     * @return the input stream response
+     * @throws IOException if an I/O error occurs
+     */
     private InputStream postToServerForOctets(String url, String json) throws IOException {
         MediaType JSON
                 = MediaType.parse("application/json; charset=utf-8");
@@ -110,6 +152,13 @@ public class WebAPIs {
         return response.body().byteStream();
     }
 
+    /**
+     * Signs in with the specified app key and secret.
+     *
+     * @param appKey the application key
+     * @param appSecret the application secret
+     * @param signInCallback the sign in callback
+     */
     @SuppressWarnings("unused")
     public void signIn(String appKey, String appSecret, SignInCallback signInCallback) {
         String signInURL = URL_PREFIX + SERVICE_SIGN_IN;
@@ -138,6 +187,13 @@ public class WebAPIs {
         }
     }
 
+    /**
+     * Lists categories with the specified parameters.
+     *
+     * @param from the starting index
+     * @param count the number of categories to list
+     * @param listCategoriesCallback the list categories callback
+     */
     @SuppressWarnings("unused")
     public void listCategories(int from, int count, ListCategoriesCallback listCategoriesCallback) {
         String listCategoriesURL = URL_PREFIX + SERVICE_LIST_CATEGORIES;
@@ -163,6 +219,14 @@ public class WebAPIs {
         }
     }
 
+    /**
+     * Lists brands with the specified parameters.
+     *
+     * @param categoryId the category ID
+     * @param from the starting index
+     * @param count the number of brands to list
+     * @param listBrandsCallback the list brands callback
+     */
     @SuppressWarnings("unused")
     public void listBrands(int categoryId, int from, int count,
                            ListBrandsCallback listBrandsCallback) {
@@ -190,6 +254,11 @@ public class WebAPIs {
         }
     }
 
+    /**
+     * Lists provinces.
+     *
+     * @param listProvincesCallback the list provinces callback
+     */
     @SuppressWarnings("unused")
     public void listProvinces(ListProvincesCallback listProvincesCallback) {
         String listProvincesURL = URL_PREFIX + SERVICE_LIST_PROVINCES;
@@ -213,6 +282,12 @@ public class WebAPIs {
         }
     }
 
+    /**
+     * Lists cities with the specified prefix.
+     *
+     * @param prefix the province prefix
+     * @param listCitiesCallback the list cities callback
+     */
     @SuppressWarnings("unused")
     public void listCities(String prefix, ListCitiesCallback listCitiesCallback) {
         String listCitiesURL = URL_PREFIX + SERVICE_LIST_CITIES;
@@ -237,6 +312,12 @@ public class WebAPIs {
         }
     }
 
+    /**
+     * Lists operators for the specified city code.
+     *
+     * @param cityCode the city code
+     * @param listOperatersCallback the list operators callback
+     */
     @SuppressWarnings("unused")
     public void listOperators(String cityCode,
                               ListOperatersCallback listOperatersCallback) {
@@ -264,6 +345,16 @@ public class WebAPIs {
         }
     }
 
+    /**
+     * Lists remote indexes with the specified parameters.
+     *
+     * @param categoryId the category ID
+     * @param brandId the brand ID
+     * @param cityCode the city code
+     * @param operatorId the operator ID
+     * @param withParaData the parameter data flag
+     * @param onListIndexCallback the list indexes callback
+     */
     @SuppressWarnings("unused")
     public void listRemoteIndexes(int categoryId,
                                   int brandId,
@@ -300,6 +391,13 @@ public class WebAPIs {
         }
     }
 
+    /**
+     * Downloads a binary file with the specified parameters.
+     *
+     * @param remoteMap the remote map
+     * @param indexId the index ID
+     * @param downloadBinCallback the download binary callback
+     */
     @SuppressWarnings("unused")
     public void downloadBin(String remoteMap, int indexId,
                             DownloadBinCallback downloadBinCallback) {
@@ -327,6 +425,17 @@ public class WebAPIs {
         }
     }
 
+    /**
+     * Decodes IR data with the specified parameters.
+     *
+     * @param indexId the index ID
+     * @param acStatus the AC status
+     * @param keyCode the key code
+     * @param changeWindDir the change wind direction flag
+     * @param directDecode the direct decode flag
+     * @param paraData the parameter data
+     * @return the decoded IR data
+     */
     @SuppressWarnings("unused")
     public int[] decodeIR(int indexId, ACStatus acStatus, int keyCode, int changeWindDir,
                           Integer directDecode, Integer paraData) {
@@ -359,6 +468,13 @@ public class WebAPIs {
         return null;
     }
 
+    /**
+     * Gets AC parameters with the specified parameters.
+     *
+     * @param indexId the index ID
+     * @param mode the mode
+     * @return the AC parameters
+     */
     @SuppressWarnings("unused")
     public ACParameters getACParameters(int indexId, int mode) {
         String decodeURL = URL_PREFIX + SERVICE_GET_AC_PARAMETERS;

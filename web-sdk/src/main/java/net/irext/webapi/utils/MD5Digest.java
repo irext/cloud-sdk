@@ -14,6 +14,19 @@ import java.security.MessageDigest;
  */
 public class MD5Digest {
 
+    /**
+     * Default constructor for MD5Digest.
+     */
+    public MD5Digest() {
+        // Private constructor to prevent instantiation
+    }
+
+    /**
+     * Generates an MD5 hash for the given content.
+     *
+     * @param content the content to hash
+     * @return the MD5 hash of the content
+     */
     public static String MD5(String content) {
         String result = null;
         try {

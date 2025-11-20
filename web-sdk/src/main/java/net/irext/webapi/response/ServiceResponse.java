@@ -14,18 +14,36 @@ public class ServiceResponse {
 
     private Status status;
 
+    /**
+     * Constructs a ServiceResponse with the specified status.
+     *
+     * @param status the response status
+     */
     public ServiceResponse(Status status) {
         this.status = status;
     }
 
+    /**
+     * Default constructor for ServiceResponse.
+     */
     public ServiceResponse() {
 
     }
 
+    /**
+     * Gets the response status.
+     *
+     * @return the response status
+     */
     public Status getStatus() {
         return status;
     }
 
+    /**
+     * Sets the response status.
+     *
+     * @param status the response status to set
+     */
     public void setStatus(Status status) {
         this.status = status;
     }

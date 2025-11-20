@@ -16,20 +16,39 @@ public class ACParametersResponse extends ServiceResponse {
 
     private ACParameters entity;
 
+    /**
+     * Constructs an ACParametersResponse with the specified status and entity.
+     *
+     * @param status the status of the response
+     * @param entity the AC parameters entity
+     */
     public ACParametersResponse(Status status, ACParameters entity) {
         super(status);
         this.entity = entity;
     }
 
+    /**
+     * Default constructor for ACParametersResponse.
+     */
     public ACParametersResponse() {
         super(new Status());
         this.entity = null;
     }
 
+    /**
+     * Gets the AC parameters entity.
+     *
+     * @return the AC parameters entity
+     */
     public ACParameters getEntity() {
         return entity;
     }
 
+    /**
+     * Sets the AC parameters entity.
+     *
+     * @param entity the AC parameters entity to set
+     */
     public void setEntity(ACParameters entity) {
         this.entity = entity;
     }
