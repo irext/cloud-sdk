@@ -1,12 +1,21 @@
 ## Usage
 
 ### 1. Register your APP
-Register your APP on irext SDK console [irext SDK console](http://site.irext.net), (You need to register an irext account first
+Register your APP on irext SDK console [irext SDK console](http://site.irext.net), (You need to register an irext account first.
 
-While your APP is registered, you can see the APP key and APP secret in your APP list
+While your APP is registered, you can see the APP key and APP secret in your APP list.
 
 ### 2. Import the SDK
-You can either import this project or download the web-api .jar file from [Java SDK](http://irext-lib-releaese.oss-cn-hangzhou.aliyuncs.com/decode/0.1.2/web-api-java-0.1.2.jar) and import to your project
+Import the SDK package in your maven project by adding following lines to pom.xml and sync the maven project.
+```xml
+<dependency>
+    <groupId>net.irext.webapi</groupId>
+    <artifactId>irext-webapi</artifactId>
+    <version>1.5.1</version>
+</dependency>
+```
+
+
 
 ### 3. Use the SDK
 
