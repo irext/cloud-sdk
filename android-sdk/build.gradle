@@ -6,10 +6,10 @@ buildscript {
         mavenCentral()
         google()
         maven {
-            url = "https://maven.aliyun.com/nexus/content/repositories/releases/" // ADD =
+            url = "https://maven.aliyun.com/nexus/content/repositories/releases/"
         }
         maven {
-            url = "https://maven.aliyun.com/nexus/content/repositories/snapshots" // ADD =
+            url = "https://maven.aliyun.com/nexus/content/repositories/snapshots"
         }
     }
     dependencies {
@@ -26,10 +26,10 @@ allprojects {
         mavenCentral()
         google()
         maven {
-            url = "https://maven.aliyun.com/nexus/content/repositories/releases/" // ADD =
+            url = "https://maven.aliyun.com/nexus/content/repositories/releases/"
         }
         maven {
-            url = "https://maven.aliyun.com/nexus/content/repositories/snapshots" // ADD =
+            url = "https://maven.aliyun.com/nexus/content/repositories/snapshots"
         }
     }
 }
@@ -141,12 +141,10 @@ afterEvaluate {
         }
 
         repositories {
-            // Sonatype OSSRH (the gateway to Maven Central)
             maven {
                 name = "OSSRH"
                 url = uri('https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/')
                 credentials {
-                    // These variables must be set in your ~/.gradle/gradle.properties
                     username = project.hasProperty('mavenCentralUsername') ? project.mavenCentralUsername : ''
                     password = project.hasProperty('mavenCentralPassword') ? project.mavenCentralPassword : ''
                 }
