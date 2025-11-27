@@ -1,54 +1,89 @@
-apply plugin: 'com.android.library'
+import com.android.builder.model.ApiVersion
+import com.android.builder.model.ProductFlavor
 
 buildscript {
     repositories {
-        maven {
-            url "https://maven.aliyun.com/nexus/content/repositories/releases"
-        }
-        jcenter()
+        mavenCentral()
         google()
+        maven {
+            url = "https://maven.aliyun.com/nexus/content/repositories/releases/" // ADD =
+        }
+        maven {
+            url = "https://maven.aliyun.com/nexus/content/repositories/snapshots" // ADD =
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.2.0'
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
     }
 }
+
+apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
 allprojects {
     repositories {
-        maven {
-            url "https://maven.aliyun.com/nexus/content/repositories/releases/"
-        }
-        maven {
-            url "https://maven.aliyun.com/nexus/content/repositories/snapshots"
-        }
+        mavenCentral()
         google()
-        jcenter()
+        maven {
+            url = "https://maven.aliyun.com/nexus/content/repositories/releases/" // ADD =
+        }
+        maven {
+            url = "https://maven.aliyun.com/nexus/content/repositories/snapshots" // ADD =
+        }
     }
 }
+
+configurations {
+    javadocDeps {
+        extendsFrom implementation
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
+tasks.register('androidJavadocs', Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += configurations.javadocDeps
+
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+}
+
+tasks.register('androidJavadocsJar', Jar) {
+    dependsOn androidJavadocs
+    archiveClassifier.set('javadoc')
+    from androidJavadocs.destinationDir
+}
+
+tasks.register('androidSourcesJar', Jar) {
+    archiveClassifier.set('sources')
+    from android.sourceSets.main.java.srcDirs
+}
+
 android {
     namespace = "net.irext.webapi"
     signingConfigs {
         irext_key {
             keyAlias 'irext-android'
-            keyPassword 'irext-android'
+            keyPassword 'ghostcicy'
             storeFile file('/home/strawmanbobi/Develop/project/irext/keys/irext-android.jks')
-            storePassword 'irext-android'
+            storePassword 'ghostcicy'
         }
     }
-    compileSdk 36
+    compileSdk = 36
     defaultConfig {
-        minSdkVersion 26
-        targetSdkVersion 36
-        versionCode 7
-        versionName '1.5.0'
-        signingConfig signingConfigs.irext_key
+        minSdkVersion = 26
+        targetSdkVersion = 36
+        versionCode = 7
+        versionName = '1.5.0'
+        signingConfig = signingConfigs.irext_key
     }
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.irext_key
             versionNameSuffix '1.5.0'
         }
         debug {
@@ -59,10 +94,73 @@ android {
     }
     productFlavors {
     }
+
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId = android.namespace
+                artifactId = 'irext-androidapi'
+                version = android.defaultConfig.versionName
+
+                from components.release
+
+                pom {
+                    name = 'irext-remote-index-android'
+                    description = 'Android Indexing API for IRext remote controller'
+                    url = 'https://opensource.irext.net/irext/index-api'
+
+                    licenses {
+                        license {
+                            name = 'MIT'
+                            url = 'https://opensource.irext.net/irext/index-api/-/blob/master/LICENSE'
+                        }
+                    }
+                    developers {
+                        developer {
+                            name = 'Strawmanbobi'
+                            email = 'strawmanbobi@irext.net'
+                            organizationUrl = 'https://site.irext.net'
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:git://opensource.irext.net/irext/index-api'
+                        developerConnection = 'scm:git:ssh://opensource.irext.net/irext/index-api'
+                        url = 'https://opensource.irext.net/irext/index-api'
+                    }
+                }
+            }
+        }
+
+        repositories {
+            // Sonatype OSSRH (the gateway to Maven Central)
+            maven {
+                name = "OSSRH"
+                url = uri('https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/')
+                credentials {
+                    // These variables must be set in your ~/.gradle/gradle.properties
+                    username = project.hasProperty('mavenCentralUsername') ? project.mavenCentralUsername : ''
+                    password = project.hasProperty('mavenCentralPassword') ? project.mavenCentralPassword : ''
+                }
+            }
+        }
+    }
+
+    signing {
+        sign publishing.publications.release
+    }
 }
 
 dependencies {
-    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
-    implementation 'com.squareup.okio:okio:3.4.0'
+    implementation 'com.squareup.okhttp3:okhttp:5.3.1'
+    implementation 'com.squareup.okio:okio:3.16.3'
     implementation 'com.google.code.gson:gson:2.13.2'
 }
