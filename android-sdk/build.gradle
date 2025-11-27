@@ -77,14 +77,14 @@ android {
         minSdkVersion = 26
         targetSdkVersion = 36
         versionCode = 7
-        versionName = '1.5.0'
+        versionName = '1.5.1'
         signingConfig = signingConfigs.irext_key
     }
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            versionNameSuffix '1.5.0'
+            versionNameSuffix '1.5.1'
         }
         debug {
             debuggable true
@@ -97,8 +97,6 @@ android {
 
     publishing {
         singleVariant('release') {
-            withSourcesJar()
-            withJavadocJar()
         }
     }
 }
@@ -112,6 +110,9 @@ afterEvaluate {
                 version = android.defaultConfig.versionName
 
                 from components.release
+
+                artifact androidSourcesJar
+                artifact androidJavadocsJar
 
                 pom {
                     name = 'irext-remote-index-android'

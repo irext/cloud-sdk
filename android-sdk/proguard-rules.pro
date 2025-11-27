@@ -23,3 +23,12 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-keep public class net.irext.webapi.** {
+    public protected *;
+}
+
+# If your library uses reflection (e.g., for JSON deserialization with Gson),
+# you might need to add specific rules for those models:
+-keep class * implements java.io.Serializable {
+    public <fields>;
+}
