@@ -1,31 +1,35 @@
 ## Usage
 
 ### 1. Register your APP
-Register your APP on irext SDK console [irext SDK console](http://site.irext.net), (You need to register an irext account first)
+Register your APP on IRext SDK console [irext SDK console](http://site.irext.net/sdk), (You need to register an IRext account first)
 
 You need to fetch the package name and SHA1 signature of your APP and fill these information as SDK registration information
 
 While your APP is registered, you can see the APP key and APP secret in your APP list
 
 ### 2. Import the SDK
-You can either import this project or download the web-api .aar file from [Android SDK](http://irext-lib-releaese.oss-cn-hangzhou.aliyuncs.com/decode/0.1.2/web-api-android-0.1.2.aar) and import to your Android APP project
+Import the Android AAR package by adding following lines to your build.gradle, and sync the gradle configs.
+
+```json
+implementation 'net.irext.webapi:irext-androidapi:1.5.1'
+```
 
 Add 2 meta-data tags to your AndroidManifest.xml providing APP key and secret get from step 1.
 ```xml
 <meta-data
-    android:name="irext_app_key"
-    android:value="your app key" />
+        android:name="irext_app_key"
+        android:value="your app key" />
 
 <meta-data
-    android:name="irext_app_secret"
-    android:value="your app secret" />
+android:name="irext_app_secret"
+android:value="your app secret" />
 ```
 
 ### 3. Use the SDK
 
 Import classes:
 ```java
-import net.irext.webapi.model.*;    
+import net.irext.webapi.model.*;
 import net.irext.webapi.WebAPIs;
 import net.irext.webapi.WebAPICallbacks.*;
 ```
