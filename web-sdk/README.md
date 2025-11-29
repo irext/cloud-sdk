@@ -1,7 +1,7 @@
 ## Usage
 
 ### 1. Register your APP
-Register your APP on irext SDK console [irext SDK console](http://site.irext.net), (You need to register an irext account first.
+Register your APP on IRext SDK console [irext SDK console](http://site.irext.net), (You need to register an IRext account first.
 
 While your APP is registered, you can see the APP key and APP secret in your APP list.
 
@@ -14,8 +14,6 @@ Import the SDK package in your maven project by adding following lines to pom.xm
     <version>1.5.1</version>
 </dependency>
 ```
-
-
 
 ### 3. Use the SDK
 
