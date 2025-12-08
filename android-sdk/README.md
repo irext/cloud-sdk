@@ -17,12 +17,8 @@ implementation 'net.irext.webapi:irext-androidapi:1.5.1'
 Add 2 meta-data tags to your AndroidManifest.xml providing APP key and secret get from step 1.
 ```xml
 <meta-data
-        android:name="irext_app_key"
-        android:value="your app key" />
-
-<meta-data
-android:name="irext_app_secret"
-android:value="your app secret" />
+    android:name="irext_app_key"
+    android:value="your app key" />
 ```
 
 ### 3. Use the SDK
