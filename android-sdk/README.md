@@ -19,6 +19,9 @@ Add 2 meta-data tags to your AndroidManifest.xml providing APP key and secret ge
 <meta-data
     android:name="irext_app_key"
     android:value="your app key" />
+<meta-data
+    android:name="irext_app_secret"
+    android:value="your app secret" />
 ```
 
 ### 3. Use the SDK
