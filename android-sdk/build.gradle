@@ -77,14 +77,14 @@ android {
         minSdkVersion = 26
         targetSdkVersion = 36
         versionCode = 7
-        versionName = '1.5.1'
+        versionName = '1.5.2'
         signingConfig = signingConfigs.irext_key
     }
     buildTypes {
         release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            versionNameSuffix '1.5.1'
+            minifyEnabled false
+            // proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            versionNameSuffix '1.5.2'
         }
         debug {
             debuggable true
