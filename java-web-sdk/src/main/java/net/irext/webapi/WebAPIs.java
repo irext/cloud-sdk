@@ -441,6 +441,7 @@ public class WebAPIs {
                           Integer directDecode, Integer paraData) {
         String decodeURL = URL_PREFIX + SERVICE_ONLINE_DECODE;
         DecodeRequest decodeRequest = new DecodeRequest();
+        acStatus.setChangeWindDir(changeWindDir);
         decodeRequest.setId(id);
         decodeRequest.setToken(token);
         decodeRequest.setIndexId(indexId);

@@ -22,6 +22,7 @@ public class ACStatus {
     private int acDisplay;
     private int acSleep;
     private int acTimer;
+    private int changeWindDir;
 
     /**
      * Default constructor for ACStatus.
@@ -40,9 +41,10 @@ public class ACStatus {
      * @param acDisplay the display setting
      * @param acSleep the sleep mode setting
      * @param acTimer the timer setting
+     * @param changeWindDir the command to change wind direction
      */
     public ACStatus(int acPower, int acMode, int acTemp, int acWindSpeed, int acWindDir,
-                    int acDisplay, int acSleep, int acTimer) {
+                    int acDisplay, int acSleep, int acTimer, int changeWindDir) {
         this.acPower = acPower;
         this.acTemp = acTemp;
         this.acMode = acMode;
@@ -51,6 +53,7 @@ public class ACStatus {
         this.acDisplay = acDisplay;
         this.acSleep = acSleep;
         this.acTimer = acTimer;
+        this.changeWindDir = changeWindDir;
     }
 
     /**
@@ -195,5 +198,23 @@ public class ACStatus {
      */
     public void setAcTimer(int acTimer) {
         this.acTimer = acTimer;
+    }
+
+    /**
+     * Gets the change wind direction setting.
+     *
+     * @return the change wind direction setting
+     */
+    public int getChangeWindDir() {
+        return changeWindDir;
+    }
+
+    /**
+     * Sets change wind direction setting.
+     *
+     * @param changeWindDir the change wind direction setting
+     */
+    public void setChangeWindDir(int changeWindDir) {
+        this.changeWindDir = changeWindDir;
     }
 }

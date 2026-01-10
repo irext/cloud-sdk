@@ -5,7 +5,7 @@
 
     <groupId>net.irext.webapi</groupId>
     <artifactId>irext-webapi</artifactId>
-    <version>1.5.1</version>
+    <version>1.5.2</version>
     <packaging>jar</packaging>
 
     <url>https://opensource.irext.net/irext/index-api</url>
