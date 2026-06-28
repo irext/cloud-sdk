@@ -262,15 +262,15 @@ public class WebAPIs {
     }
 
     @SuppressWarnings("unused")
-    public void listOperators(String cityCode,
+    public void listOperators(String cityCode, int from, int count,
                               ListOperatersCallback listOperatersCallback) {
         String listOperatorsURL = URL_PREFIX + SERVICE_LIST_OPERATORS;
         ListOperatorsRequest listOperatorsRequest = new ListOperatorsRequest();
         listOperatorsRequest.setId(id);
         listOperatorsRequest.setToken(token);
         listOperatorsRequest.setCityCode(cityCode);
-        listOperatorsRequest.setFrom(0);
-        listOperatorsRequest.setCount(20);
+        listOperatorsRequest.setFrom(from);
+        listOperatorsRequest.setCount(count);
         String bodyJson = listOperatorsRequest.toJson();
 
         try {
@@ -294,6 +294,7 @@ public class WebAPIs {
                                   String cityCode,
                                   String operatorId,
                                   int withParaData,
+                                  int from, int count,
                                   ListIndexesCallback onListIndexCallback) {
         String listIndexesURL = URL_PREFIX + SERVICE_LIST_INDEXES;
         ListIndexesRequest listIndexesRequest = new ListIndexesRequest();
@@ -304,8 +305,8 @@ public class WebAPIs {
         listIndexesRequest.setCityCode(cityCode);
         listIndexesRequest.setOperatorId(operatorId);
         listIndexesRequest.setWithParaData(withParaData);
-        listIndexesRequest.setFrom(0);
-        listIndexesRequest.setCount(20);
+        listIndexesRequest.setFrom(from);
+        listIndexesRequest.setCount(count);
         String bodyJson = listIndexesRequest.toJson();
 
         try {

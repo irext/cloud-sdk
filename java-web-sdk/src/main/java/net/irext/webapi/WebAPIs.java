@@ -316,18 +316,20 @@ public class WebAPIs {
      * Lists operators for the specified city code.
      *
      * @param cityCode the city code
+     * @param from the starting index
+     * @param count the number of operators to list
      * @param listOperatersCallback the list operators callback
      */
     @SuppressWarnings("unused")
-    public void listOperators(String cityCode,
+    public void listOperators(String cityCode, int from, int count,
                               ListOperatersCallback listOperatersCallback) {
         String listOperatorsURL = URL_PREFIX + SERVICE_LIST_OPERATORS;
         ListOperatorsRequest listOperatorsRequest = new ListOperatorsRequest();
         listOperatorsRequest.setId(id);
         listOperatorsRequest.setToken(token);
         listOperatorsRequest.setCityCode(cityCode);
-        listOperatorsRequest.setFrom(0);
-        listOperatorsRequest.setCount(20);
+        listOperatorsRequest.setFrom(from);
+        listOperatorsRequest.setCount(count);
         String bodyJson = listOperatorsRequest.toJson();
 
         try {
@@ -353,6 +355,8 @@ public class WebAPIs {
      * @param cityCode the city code
      * @param operatorId the operator ID
      * @param withParaData the parameter data flag
+     * @param from the starting index
+     * @param count the number of indexes to list
      * @param onListIndexCallback the list indexes callback
      */
     @SuppressWarnings("unused")
@@ -361,6 +365,7 @@ public class WebAPIs {
                                   String cityCode,
                                   String operatorId,
                                   int withParaData,
+                                  int from, int count,
                                   ListIndexesCallback onListIndexCallback) {
         String listIndexesURL = URL_PREFIX + SERVICE_LIST_INDEXES;
         ListIndexesRequest listIndexesRequest = new ListIndexesRequest();
@@ -371,8 +376,8 @@ public class WebAPIs {
         listIndexesRequest.setCityCode(cityCode);
         listIndexesRequest.setOperatorId(operatorId);
         listIndexesRequest.setWithParaData(withParaData);
-        listIndexesRequest.setFrom(0);
-        listIndexesRequest.setCount(20);
+        listIndexesRequest.setFrom(from);
+        listIndexesRequest.setCount(count);
         String bodyJson = listIndexesRequest.toJson();
 
         try {
