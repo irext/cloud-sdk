@@ -1,19 +1,12 @@
-import com.android.builder.model.ApiVersion
-import com.android.builder.model.ProductFlavor
-
 buildscript {
     repositories {
-        mavenCentral()
         google()
-        maven {
-            url = "https://maven.aliyun.com/nexus/content/repositories/releases/"
-        }
-        maven {
-            url = "https://maven.aliyun.com/nexus/content/repositories/snapshots"
-        }
+        mavenCentral()
+        maven { url = "https://maven.aliyun.com/nexus/content/repositories/releases/" }
+        maven { url = "https://maven.aliyun.com/nexus/content/repositories/snapshots" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.2.0'
+        classpath 'com.android.tools.build:gradle:8.2.2'
     }
 }
 
@@ -21,19 +14,14 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
-allprojects {
-    repositories {
-        mavenCentral()
-        google()
-        maven {
-            url = "https://maven.aliyun.com/nexus/content/repositories/releases/"
-        }
-        maven {
-            url = "https://maven.aliyun.com/nexus/content/repositories/snapshots"
-        }
-    }
+repositories {
+    google()
+    mavenCentral()
+    maven { url = "https://maven.aliyun.com/nexus/content/repositories/releases/" }
+    maven { url = "https://maven.aliyun.com/nexus/content/repositories/snapshots" }
 }
 
+// Configuration for gathering runtime Javadoc dependencies
 configurations {
     javadocDeps {
         extendsFrom implementation
@@ -57,46 +45,26 @@ tasks.register('androidJavadocsJar', Jar) {
     from androidJavadocs.destinationDir
 }
 
-tasks.register('androidSourcesJar', Jar) {
-    archiveClassifier.set('sources')
-    from android.sourceSets.main.java.srcDirs
-}
-
 android {
     namespace = "net.irext.webapi"
-    signingConfigs {
-        irext_key {
-            keyAlias 'irext-android'
-            keyPassword 'ghostcicy'
-            storeFile file('/home/strawmanbobi/Develop/project/irext/keys/irext-android.jks')
-            storePassword 'ghostcicy'
-        }
-    }
     compileSdk = 36
+
     defaultConfig {
-        minSdkVersion = 26
-        targetSdkVersion = 36
-        versionCode = 7
-        versionName = '1.5.2'
-        signingConfig = signingConfigs.irext_key
+        minSdkVersion 26
+        targetSdkVersion 36
+        versionCode 8
+        versionName '1.5.3'
     }
+
     buildTypes {
         release {
             minifyEnabled false
-            // proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            versionNameSuffix '1.5.2'
         }
-        debug {
-            debuggable true
-            minifyEnabled false
-            jniDebuggable true
-        }
-    }
-    productFlavors {
     }
 
     publishing {
         singleVariant('release') {
+            withSourcesJar() // Native way to bundle sources jar
         }
     }
 }
@@ -105,61 +73,67 @@ afterEvaluate {
     publishing {
         publications {
             release(MavenPublication) {
-                groupId = android.namespace
+                // Perfect match for your verified domain name
+                groupId = 'net.irext.webapi'
                 artifactId = 'irext-androidapi'
                 version = android.defaultConfig.versionName
 
                 from components.release
-
-                artifact androidSourcesJar
                 artifact androidJavadocsJar
 
                 pom {
                     name = 'irext-remote-index-android'
                     description = 'Android Indexing API for IRext remote controller'
-                    url = 'https://opensource.irext.net/irext/index-api'
+                    url = 'https://github.com/irext/cloud-sdk'
 
                     licenses {
                         license {
                             name = 'MIT'
-                            url = 'https://opensource.irext.net/irext/index-api/-/blob/master/LICENSE'
+                            url = 'https://github.com/irext/cloud-sdk/blob/master/LICENSE'
                         }
                     }
                     developers {
                         developer {
                             name = 'Strawmanbobi'
                             email = 'strawmanbobi@irext.net'
+                            organization = 'IRext'
                             organizationUrl = 'https://site.irext.net'
                         }
                     }
                     scm {
-                        connection = 'scm:git:git://opensource.irext.net/irext/index-api'
-                        developerConnection = 'scm:git:ssh://opensource.irext.net/irext/index-api'
-                        url = 'https://opensource.irext.net/irext/index-api'
+                        connection = 'scm:git:https://github.com/irext/cloud-sdk.git'
+                        developerConnection = 'scm:git:ssh://git@github.com:irext/cloud-sdk.git'
+                        url = 'https://github.com/irext/cloud-sdk'
                     }
                 }
             }
         }
 
+        // Output locally to a staged directory instead of hitting remote legacy URLs
         repositories {
             maven {
-                name = "OSSRH"
-                url = uri('https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/')
-                credentials {
-                    username = project.hasProperty('mavenCentralUsername') ? project.mavenCentralUsername : ''
-                    password = project.hasProperty('mavenCentralPassword') ? project.mavenCentralPassword : ''
-                }
+                name = "BundleDir"
+                url = layout.buildDirectory.dir("repo")
             }
         }
     }
 
     signing {
+        useGpgCmd() // Matches your Maven GPG tool signing setup
         sign publishing.publications.release
     }
 }
 
+// Task to zip everything up cleanly into a Sonatype Central matching deployment bundle
+tasks.register('buildBundle', Zip) {
+    dependsOn 'publishReleasePublicationToBundleDirRepository'
+    archiveFileName.set("bundle.zip")
+    destinationDirectory.set(layout.buildDirectory.dir("outputs/bundle"))
+    from layout.buildDirectory.dir("repo")
+}
+
 dependencies {
-    implementation 'com.squareup.okhttp3:okhttp:5.3.1'
-    implementation 'com.squareup.okio:okio:3.16.3'
-    implementation 'com.google.code.gson:gson:2.13.2'
+    implementation 'com.squareup.okhttp3:okhttp:5.4.0'
+    implementation 'com.squareup.okio:okio:3.17.0'
+    implementation 'com.google.code.gson:gson:2.14.0'
 }

@@ -70,7 +70,7 @@ ListCategoriesCallback listCategoriesCallback = new ListCategoriesCallback() {
     public void onListCategoriesError() {
     }
 };
-webApis.listCategories(listCategoriesCallback);
+webApis.listCategories(from, count, listCategoriesCallback);
 ```
 Fetch brands of a certain category other than STB:
 ```java
@@ -87,7 +87,7 @@ ListBrandsCallback listBrandsCallback = new ListBrandsCallback() {
     public void onListBrandsError() {
     }
 };
-webApis.listBrands(category.getId(), listBrandsCallback);
+webApis.listBrands(category.getId(), from, count, listBrandsCallback);
 ```
 Fetch cities (in China) for STB:
 ```java
@@ -137,7 +137,7 @@ ListOperatersCallback listOperatorCallback = new ListOperatersCallback() {
     public void onListOperatorsError() {
     }
 };
-webApis.listOperators(cityCode, listOperatorCallback);
+webApis.listOperators(cityCode, from, count, listOperatorCallback);
 ```
 Fetch remote indexes of a certain brand or STB operator:
 ```java
@@ -155,7 +155,7 @@ ListIndexesCallback listIndexesCallback = new ListIndexesCallback() {
     public void onListIndexesError() {
     }
 };
-webApis.listRemoteIndexes(category.getId(), brand.getId(), city.getCode(), operator.getOperator_id(), listIndexesCallback);
+webApis.listRemoteIndexes(category.getId(), brand.getId(), city.getCode(), operator.getOperator_id(), from, count, listIndexesCallback);
 ```
 Download IR binary for certain remote index:
 ```java

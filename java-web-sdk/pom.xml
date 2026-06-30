@@ -5,17 +5,17 @@
 
     <groupId>net.irext.webapi</groupId>
     <artifactId>irext-webapi</artifactId>
-    <version>1.5.3</version>
+    <version>1.5.3_r1</version>
     <packaging>jar</packaging>
 
-    <url>https://opensource.irext.net/irext/index-api</url>
+    <url>https://github.com/irext/cloud-sdk</url>
     <name>irext-remote-index</name>
     <description>Indexing API for IRext remote controller</description>
 
     <licenses>
         <license>
             <name>MIT</name>
-            <url>https://opensource.irext.net/irext/index-api/-/blob/master/LICENSE</url>
+            <url>https://github.com/irext/cloud-sdk/blob/master/LICENSE</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -28,9 +28,9 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:git:git://opensource.irext.net/irext/index-api</connection>
-        <developerConnection>scm:git:ssh://opensource.irext.net/irext/index-api</developerConnection>
-        <url>https://opensource.irext.net/irext/index-api</url>
+        <connection>scm:git:https://github.com/irext/cloud-sdk.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:irext/cloud-sdk.git</developerConnection>
+        <url>https://github.com/irext/cloud-sdk</url>
     </scm>
 
     <distributionManagement>
