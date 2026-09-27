@@ -5,7 +5,7 @@
 
     <groupId>net.irext.webapi</groupId>
     <artifactId>irext-webapi</artifactId>
-    <version>1.5.3_r1</version>
+    <version>1.6.0_r1</version>
     <packaging>jar</packaging>
 
     <url>https://github.com/irext/cloud-sdk</url>
