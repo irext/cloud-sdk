@@ -1,13 +1,13 @@
-## Usage
+# IRext Android Cloud SDK
 
-### 1. Register your APP
+## 1. Register your APP
 Register your APP on [IRext SDK console](http://site.irext.net/sdk), (You need to register an IRext account first)
 
 You need to fetch the package name and SHA1 signature of your APP and fill these information as SDK registration information
 
 While your APP is registered, you can see the APP key and APP secret in your APP list
 
-### 2. Import the SDK
+## 2. Import the SDK
 Import the Android AAR package by adding following lines to your build.gradle, and sync the gradle configs.
 
 ```json
@@ -24,7 +24,7 @@ Add 2 meta-data tags to your AndroidManifest.xml providing APP key and secret ge
     android:value="your app secret" />
 ```
 
-### 3. Use the SDK
+## 3. Use the SDK
 
 Import classes:
 ```java
